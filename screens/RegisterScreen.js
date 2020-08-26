@@ -1,8 +1,13 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, StatusBar} from 'react-native'
+import {Ionicons} from '@expo/vector-icons'
 import * as firebase from 'firebase'
 
 export default class RegisterScreen extends React.Component{
+    static navigationOptions = {
+        header: null
+    };
+
     state = {
         name: "",
         email: "",
@@ -25,12 +30,23 @@ export default class RegisterScreen extends React.Component{
     render(){
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="light-content"></StatusBar>
+
+                <Image 
+                    style={{width: 300, height: 190, marginLeft: 60, marginTop: 20}} 
+                    source={require('../assets/logo.png')}>
+                </Image>
+
+                <TouchableOpacity style={styles.back} onPress={() => this.props.navigation.goBack()}>
+                    <Ionicons name="ios-arrow-dropleft-circle" size={32} color="#FFF"></Ionicons>
+                </TouchableOpacity>
+
                 <Text style={styles.greeting}>
-                    {'Hello!\nSign up to get started.'}
+                    {'Sign up to get started. :)'}
                 </Text>
 
                 <View style={styles.errorMessage}>
-        {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
+                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
                 </View>
 
                 <View style={styles.form}>
@@ -66,9 +82,11 @@ export default class RegisterScreen extends React.Component{
                     <Text style={{color: "#FFF", fontWeight: "500"}}>Sign up</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{alignSelf: "center", marginTop: 32}}>
+                <TouchableOpacity 
+                style={{alignSelf: "center", marginTop: 32, marginBottom: 15}}
+                onPress={() => this.props.navigation.navigate("Login")}>
                     <Text style={{ color: "#414959", fontSize: 13 }}>
-                        New to ChatKuy? <Text style={{ fontWeight: "500", color: "#009933" }}>Login</Text>
+                        Have an account? <Text style={{ fontWeight: "500", color: "#009933" }}>Login</Text>
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -79,6 +97,7 @@ export default class RegisterScreen extends React.Component{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
+        backgroundColor: "#e6ffff"
     },
     greeting: {
         marginTop: 32,
@@ -119,6 +138,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#009933",
         borderRadius: 4,
         height: 52,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    back:{
+        position: "absolute",
+        top: 15,
+        left: 16,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: "#A2E59B",
         alignItems: "center",
         justifyContent: "center"
     }

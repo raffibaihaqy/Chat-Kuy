@@ -3,6 +3,10 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, StatusBar, L
 import * as firebase from 'firebase'
 
 export default class LoginScreen extends React.Component{
+    static navigationOptions = {
+        header: null
+    };
+
     state = {
         email: "",
         password: "",
@@ -21,12 +25,18 @@ export default class LoginScreen extends React.Component{
     render(){
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="light-content"></StatusBar>
+                <Image 
+                    style={{width: 300, height: 190, marginLeft: 60, marginTop: 20}} 
+                    source={require('../assets/logo.png')}>
+                </Image>
+
                 <Text style={styles.greeting}>
-                    {'Hello again.\nWelcome back.'}
+                    {'Hey! good to see u :)'}
                 </Text>
 
                 <View style={styles.errorMessage}>
-        {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
+                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
                 </View>
 
                 <View style={styles.form}>
@@ -50,11 +60,11 @@ export default class LoginScreen extends React.Component{
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign in, Image, StatusBar, LayoutAnimation</Text>
+                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign in</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    style={{alignSelf: "center", marginTop: 32}} 
+                    style={{alignSelf: "center", marginTop: 32, marginBottom: 15}} 
                     onPress={() => this.props.navigation.navigate("Register")}>
                     <Text style={{ color: "#414959", fontSize: 13 }}>
                         New to ChatKuy? <Text style={{ fontWeight: "500", color: "#009933" }}>Sign Up</Text>
@@ -68,6 +78,7 @@ export default class LoginScreen extends React.Component{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
+        backgroundColor: "#e6ffff"
     },
     greeting: {
         marginTop: 32,
