@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, StatusBar, LayoutAnimation} from 'react-native'
 import * as firebase from 'firebase'
 
 export default class LoginScreen extends React.Component{
@@ -50,7 +50,7 @@ export default class LoginScreen extends React.Component{
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign </Text>
+                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign in, Image, StatusBar, LayoutAnimation</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 

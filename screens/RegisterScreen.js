@@ -10,6 +10,18 @@ export default class RegisterScreen extends React.Component{
         errorMessage: null
     };
 
+    handleSignUp = () => {
+        firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(userCredentials => {
+            return userCredentials.user.updateProfile({
+                displayName: this.state.name
+            });
+        })
+        .catch(error => this.setState({errorMessage: error.message}));
+    };
+
     render(){
         return (
             <View style={styles.container}>
@@ -50,13 +62,13 @@ export default class RegisterScreen extends React.Component{
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign </Text>
+                <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+                    <Text style={{color: "#FFF", fontWeight: "500"}}>Sign up</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{alignSelf: "center", marginTop: 32}}>
                     <Text style={{ color: "#414959", fontSize: 13 }}>
-                        New to ChatKuy? <Text style={{ fontWeight: "500", color: "#009933" }}>Sign Up</Text>
+                        New to ChatKuy? <Text style={{ fontWeight: "500", color: "#009933" }}>Login</Text>
                     </Text>
                 </TouchableOpacity>
             </View>
