@@ -1,22 +1,51 @@
 import firebase from 'firebase'
-
-var firebaseConfig = {
-    apiKey: "AIzaSyDn5eC3JR8z2_NS6bZqQ2rQqEZvNtgjX1E",
-    authDomain: "chatkuy-f081d.firebaseapp.com",
-    databaseURL: "https://chatkuy-f081d.firebaseio.com",
-    projectId: "chatkuy-f081d",
-    storageBucket: "chatkuy-f081d.appspot.com",
-    messagingSenderId: "1090017335579",
-    appId: "1:1090017335579:web:f4d768c97c93c0f4d01bbe",
-    measurementId: "G-58312FGCFY"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+import firebaseConfig from './App'
 
 class Fire {
     constructor() {
-        firebase.initializeApp(firebaseConfig)
+        
+    }
+
+    addPost = async ({text, localUri}) => {
+        const remoteUri = await this.uploadPhotoAsync(localUri)
+
+        return new Promise((res, rej) => {
+            this.firestore.collection("posts").add({
+                text,
+                uid: this.uid,
+                timestamp: this.timestamp,
+                image: remoteUri
+            })
+            .then(ref => {
+                res(ref)
+            })
+            .catch(error => {
+                rej(error)
+            })
+        })
+    }
+
+    uploadPhotoAsync = async uri => {
+        const path = `photos/${this.uid}/${Date.now()}.jpg`
+
+        return new Promise(async (res, rej) => {
+            const response = await fetch(uri)
+            const file = await response.blob()
+
+            let upload = firebase.storage().ref(path).put(file);
+
+            upload.on(
+                "state_changed", 
+                snapshot => {}, 
+                err => {
+                    rej(err);
+            },
+            async () => {
+                const url = await upload.snapshot.ref.getDownloadURL()
+                res(url)
+            }            
+            )
+        })
     }
 
     get firestore() {
