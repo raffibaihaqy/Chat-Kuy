@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component{
 
         return (
             <View style={styles.container}>
-                <Text>Hi {this.state.email}!</Text>
+                <Text>Hi {this.state.displayName}!</Text>
 
                 <TouchableOpacity style={{marginTop: 32}} onPress={this.signOutUser}>
                     <Text>Logout</Text>

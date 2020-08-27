@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
+import Fire from '../Fire'
 
 export default class LoadingScreen extends React.Component{
     componentDidMount(){
@@ -12,7 +13,7 @@ export default class LoadingScreen extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                <Text>Loading...</Text>
+                <Text>Hey wait...</Text>
                 <ActivityIndicator size="large"></ActivityIndicator>
             </View>
         )

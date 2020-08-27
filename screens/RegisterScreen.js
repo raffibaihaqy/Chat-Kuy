@@ -33,7 +33,7 @@ export default class RegisterScreen extends React.Component{
                 <StatusBar barStyle="light-content"></StatusBar>
 
                 <Image 
-                    style={{width: 300, height: 190, marginLeft: 60, marginTop: 20}} 
+                    style={{width: 300, height: 190, marginLeft: 60, marginTop: 30}} 
                     source={require('../assets/logo.png')}>
                 </Image>
 
@@ -41,9 +41,17 @@ export default class RegisterScreen extends React.Component{
                     <Ionicons name="ios-arrow-dropleft-circle" size={32} color="#FFF"></Ionicons>
                 </TouchableOpacity>
 
-                <Text style={styles.greeting}>
-                    {'Sign up to get started. :)'}
-                </Text>
+                <View style={{posiiton: "absolute", top: 24, alignItems: "center", width: "100%"}}>
+                    <TouchableOpacity style={styles.avatar}>
+                        <Ionicons 
+                            name="ios-add"
+                            size={40} 
+                            color="#A7ADA7" 
+                            style={{marginTop: 1, marginLeft: 1}}>
+                        </Ionicons>
+                    </TouchableOpacity>
+                    <Text style={styles.greeting}>{'Sign up to get started. :)'}</Text>
+                </View>
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
@@ -100,7 +108,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#e6ffff"
     },
     greeting: {
-        marginTop: 32,
+        marginBottom: 20,
+        marginTop: 24,
         fontSize: 18,
         fontWeight: "400",
         textAlign: "center"
@@ -151,5 +160,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#A2E59B",
         alignItems: "center",
         justifyContent: "center"
+    },
+    avatar: {
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        backgroundColor: "#E1E2E6",
+        marginBottom: 5,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })
