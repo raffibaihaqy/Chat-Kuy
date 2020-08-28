@@ -53,7 +53,7 @@ class Fire {
     }
 
     get uid() {
-        return (firebase.auth.currentUser || {}).uid
+        return (firebase.auth().currentUser || {}).uid
     }
 
     get timestamp() {

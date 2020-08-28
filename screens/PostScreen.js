@@ -7,7 +7,7 @@ import Fire from "../Fire"
 import * as ImagePicker from 'expo-image-picker'
 
 const firebase = require('firebase')
-require('firebase/firestore')
+require("firebase/firestore")
 
 export default class PostScreen extends React.Component {
     state = {
@@ -35,8 +35,6 @@ export default class PostScreen extends React.Component {
             .then(ref => {
                 this.setState({text: "", image: null})
                 this.props.navigation.goBack()
-        }).catch(error => {
-            alert(error)
         })
     }
 
