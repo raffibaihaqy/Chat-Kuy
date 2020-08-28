@@ -58,7 +58,7 @@ export default class PostScreen extends React.Component {
                         <Ionicons name="md-arrow-back" size={24} color="#B4B4B4"></Ionicons>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.handlePost}>
-                        <Text style={{fontWeight:"500"}}>Post</Text>
+                        <Text style={{fontWeight:"500", marginTop: 4}}>Post</Text>
                     </TouchableOpacity>
                 </View>
 
