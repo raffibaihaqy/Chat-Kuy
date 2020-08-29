@@ -5,6 +5,7 @@ import Contants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import Fire from "../Fire"
 import * as ImagePicker from 'expo-image-picker'
+import UserPermissions from '../utilities/UserPermissions'
 
 const firebase = require('firebase')
 require("firebase/firestore")
@@ -16,17 +17,7 @@ export default class PostScreen extends React.Component {
     };
 
     componentDidMount() {
-        this.getPhotoPermission()
-    }
-
-    getPhotoPermission = async () => {
-        if(Contants.platform.android){
-            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
-            if(status != "granted"){
-                alert("We need permission to access your camera roll")
-            }
-        }
+        UserPermissions.getCameraPermission()
     }
 
     handlePost = () => {

@@ -74,7 +74,7 @@ const AppContainer = createStackNavigator(
           activeTintColor: "#545454",
           inactiveTintColor: "#B4B4B4",
           showLabel: false
-        }
+        },
       }
     ),
     postModal: {
@@ -87,10 +87,12 @@ const AppContainer = createStackNavigator(
   }
 )
 
-const AuthStack = createStackNavigator({
-  Login: LoginScreen,
-  Register: RegisterScreen
-})
+const AuthStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+    Register: RegisterScreen
+  }
+)
 
 export default createAppContainer(
   createSwitchNavigator(

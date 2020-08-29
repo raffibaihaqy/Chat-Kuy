@@ -10,8 +10,8 @@ var FirebaseKeys = {
     appId: "1:1090017335579:web:f4d768c97c93c0f4d01bbe",
     measurementId: "G-58312FGCFY"
   };
-  // Initialize Firebase
-  firebase.initializeApp(FirebaseKeys);
-  firebase.analytics();
+  //initialize firebase
+  firebase.initializeApp(FirebaseKeys)
+  firebase.analytics()
 
 export default FirebaseKeys;

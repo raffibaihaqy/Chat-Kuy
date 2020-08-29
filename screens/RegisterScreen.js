@@ -1,7 +1,9 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, StatusBar} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
-import * as firebase from 'firebase'
+import Fire from '../Fire'
+import UserPermissions from '../utilities/UserPermissions'
+import * as ImagePicker from 'expo-image-picker'
 
 export default class RegisterScreen extends React.Component{
     static navigationOptions = {
@@ -9,22 +11,31 @@ export default class RegisterScreen extends React.Component{
     };
 
     state = {
-        name: "",
-        email: "",
-        password: "",
+        user: {
+            name: "",
+            email: "",
+            password: "",
+            avatar: null
+        },
         errorMessage: null
     };
 
-    handleSignUp = () => {
-        firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(userCredentials => {
-            return userCredentials.user.updateProfile({
-                displayName: this.state.name
-            });
+    handlePickAvatar = async () => {
+        UserPermissions.getCameraPermission()
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3]
         })
-        .catch(error => this.setState({errorMessage: error.message}));
+
+        if(!result.cancelled) {
+            this.setState({user : {...this.state.user, avatar: result.uri}})
+        }
+    }
+
+    handleSignUp = () => {
+        Fire.shared.createUser(this.state.user)
     };
 
     render(){
@@ -42,7 +53,8 @@ export default class RegisterScreen extends React.Component{
                 </TouchableOpacity>
 
                 <View style={{posiiton: "absolute", top: 24, alignItems: "center", width: "100%"}}>
-                    <TouchableOpacity style={styles.avatar}>
+                    <TouchableOpacity style={styles.avatarPlaceholder}onPress={this.handlePickAvatar}>
+                        <Image source={{uri: this.state.user.avatar}} style={styles.avatar}></Image>
                         <Ionicons 
                             name="ios-add"
                             size={40} 
@@ -62,8 +74,8 @@ export default class RegisterScreen extends React.Component{
                         <Text style={styles.inputTitle}>Username</Text>
                         <TextInput style={styles.input} 
                         autoCapitalize="none" 
-                        onChangeText={name => this.setState({name})}
-                        value={this.state.name}
+                        onChangeText={name => this.setState({user: {...this.state.user, name}})}
+                        value={this.state.user.name}
                         ></TextInput>
                     </View>
 
@@ -71,8 +83,8 @@ export default class RegisterScreen extends React.Component{
                         <Text style={styles.inputTitle}>Email Address</Text>
                         <TextInput style={styles.input} 
                         autoCapitalize="none" 
-                        onChangeText={email => this.setState({email})}
-                        value={this.state.email}
+                        onChangeText={email => this.setState({user: {...this.state.user, email}})}
+                        value={this.state.user.email}
                         ></TextInput>
                     </View>
 
@@ -80,8 +92,8 @@ export default class RegisterScreen extends React.Component{
                         <Text style={styles.inputTitle}>Password</Text>
                         <TextInput style={styles.input} secureTextEntry 
                         autoCapitalize="none"
-                        onChangeText={password => this.setState({password})}
-                        value={this.state.password}
+                        onChangeText={password => this.setState({user: {...this.state.user, password}})}
+                        value={this.state.user.password}
                         ></TextInput>
                     </View>
                 </View>
@@ -160,14 +172,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#A2E59B",
         alignItems: "center",
         justifyContent: "center"
+    },    
+    avatarPlaceholder: {
+        width: 80,
+        height: 80,
+        backgroundColor: "#E1E2E6",
+        borderRadius: 50,
+        marginTop: 8,
+        justifyContent: "center",
+        alignItems: "center"
     },
     avatar: {
+        position: "absolute",
         width: 70,
         height: 70,
         borderRadius: 50,
-        backgroundColor: "#E1E2E6",
-        marginBottom: 5,
-        justifyContent: "center",
-        alignItems: "center"
     }
 })
