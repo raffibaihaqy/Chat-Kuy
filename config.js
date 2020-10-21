@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 
 var FirebaseKeys = {
-    apiKey: "AIzaSyDn5eC3JR8z2_NS6bZqQ2rQqEZvNtgjX1E",
+    apiKey: "AIzaSyDMiuuz3rDgSg6jehbwHpQ7s_h5TNzAPQM",
     authDomain: "chatkuy-f081d.firebaseapp.com",
     databaseURL: "https://chatkuy-f081d.firebaseio.com",
     projectId: "chatkuy-f081d",
